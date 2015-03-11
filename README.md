@@ -1,0 +1,2 @@
+# Blocks-Placement-Policy-for-Distributed-Data-Warehouses
+In connexion with a work in progress related to collocating data on multi-nodes Hadoop clusters, we made available, instead of SSB’s 13 queries, two additional flights of queries that each consist of three queries with different selectivity. Each flight consists of a sequence of building OLAP cube queries that someone working with data warehouse system would ask. Translated to HiveQL we use the ”with cube” operator available on Hive (Version 0.10.0, released on January 14th, 2013). 
