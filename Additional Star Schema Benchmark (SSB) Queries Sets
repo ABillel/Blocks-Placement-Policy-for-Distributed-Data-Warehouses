@@ -1,0 +1,76 @@
+
+
+Q5.1.
+
+INSERT OVERWRITE TABLE store select * from (
+select sum(l.lorevenue) as revenu, d.dyear as YEAR,
+p.pbrand1 as BRAND from lineorder l JOIN ddate d ON
+(l.loorderdate = d.ddatekey) JOIN part p On
+(l.lopartkey = p.ppartkey)JOIN supplier s ON
+(l.losuppkey = s.ssuppkey) where d.dyear = 1992
+group by d.dyear, p.pbrand1 WITH CUBE)
+lineorder
+
+Q5.2.
+
+INSERT OVERWRITE TABLE store select * from (
+select sum(l.lorevenue) as revenu, d.dyear as YEAR,
+p.pbrand1 as BRAND
+from lineorder l JOIN ddate d ON
+(l.loorderdate = d.ddatekey) JOIN part p On
+(l.lopartkey = p.ppartkey)JOIN supplier s ON
+(l.losuppkey = s.ssuppkey)
+where d.dyear >= 1992 and s.sregion = ’ASIA’
+group by d.dyear, p.pbrand1 WITH CUBE)
+lineorder
+
+Q5.3.
+
+INSERT OVERWRITE TABLE store select * from (
+select sum(l.lorevenue) as revenu, d.dyear as YEAR,
+p.pbrand1 as BRAND from lineorder l JOIN ddate d ON
+(l.loorderdate = d.ddatekey) JOIN part p On
+(l.lopartkey = p.ppartkey)JOIN supplier s ON
+(l.losuppkey = s.ssuppkey) JOIN customer c ON
+(l.locustkey = c.custkey) where d.dyear >= 1992 and
+c.cregion = ’AMERICA’ and s.snation = ’UNITED STATES’
+group by d.dyear, p.pbrand1 WITH CUBE)
+lineorder
+
+Q6.1.
+INSERT OVERWRITE TABLE store select * from (
+select sum(l.lorevenue) as revenu, d.dyear as YEAR,
+p.pbrand1 as BRAND, s.region as REGION from
+lineorder l JOIN ddate d ON
+(l.loorderdate = d.ddatekey) JOIN part p ON
+(l.lopartkey = p.ppartkey)JOIN supplier s ON
+(l.losuppkey = s.ssuppkey)
+where d.dyear = 1992
+group by d.dyear, p.pbrand1 WITH CUBE
+) lineorder
+
+Q6.2.
+INSERT OVERWRITE TABLE store select * from (
+select sum(l.lorevenue) as revenu, d.dyear as YEAR,
+p.pbrand1 as BRAND, s.region as REGION from
+lineorder l JOIN ddate d ON
+(l.loorderdate = d.ddatekey) JOIN part p ON
+(l.lopartkey = p.ppartkey)JOIN supplier s ON
+(l.losuppkey = s.ssuppkey)
+where d.dyear >= 1992 and s.sregion = ’ASIA’
+group by d.dyear, p.pbrand1 WITH CUBE)
+lineorder
+ 
+Q6.3.
+INSERT OVERWRITE TABLE store select * from (
+select sum(l.lorevenue) as revenu, d.dyear as
+YEAR, p.pbrand1 as BRAND, s.region as REGION
+from lineorder l JOIN ddate d ON
+(l.loorderdate = d.ddatekey) JOIN part p ON
+(l.lopartkey = p.ppartkey)JOIN supplier s ON
+(l.losuppkey = s.ssuppkey) JOIN customer c ON
+(l.locustkey = c.custkey)
+where d.dyear >= 1992 and c.cregion = ’AMERICA’
+and s.snation = ’UNITED STATES’
+group by d.dyear, p.pbrand1 WITH CUBE)
+lineorder
